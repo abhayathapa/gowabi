@@ -9,7 +9,7 @@
           data-latitude=<%= shop.latitude %>
           data-longitude=<%= shop.longitude %>
           data-color=<%= shop.category.color %>
-          data-name=<%= shop.name %>
+          data-name="<%= shop.name %>"
         >
           <h3><%= "#{shop.name} (#{shop.category.name})" %></h3>
           <h5><%= "#{shop.latitude} & #{shop.longitude}" %></h5>
@@ -17,7 +17,7 @@
       <% end %>
     </ol>
   </div>
-  <div id="map" style="width: 600px; height: 400px;"></div>
+  <div id="map"></div>
 </div>
 
 <%= javascript_pack_tag 'map' %>
