@@ -12,124 +12,28 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/shops", type: :request do
-  
-  # This should return the minimal set of attributes required to create a valid
-  # Shop. As you add validations to Shop, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+RSpec.describe '/shops', type: :request do
+  let(:valid_attributes) do
+    { name: 'Shop 1',
+      latitude: 0.13736717e2,
+      longitude: 0.100526186e3,
+      category: Category.create("name": 'Nails', "color": 'green') }
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  describe "GET /index" do
-    it "renders a successful response" do
+  describe 'GET /index' do
+    before do
       Shop.create! valid_attributes
       get shops_url
+    end
+
+    it 'renders a successful response' do
       expect(response).to be_successful
     end
-  end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      shop = Shop.create! valid_attributes
-      get shop_url(shop)
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_shop_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "renders a successful response" do
-      shop = Shop.create! valid_attributes
-      get edit_shop_url(shop)
-      expect(response).to be_successful
-    end
-  end
-
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Shop" do
-        expect {
-          post shops_url, params: { shop: valid_attributes }
-        }.to change(Shop, :count).by(1)
-      end
-
-      it "redirects to the created shop" do
-        post shops_url, params: { shop: valid_attributes }
-        expect(response).to redirect_to(shop_url(Shop.last))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "does not create a new Shop" do
-        expect {
-          post shops_url, params: { shop: invalid_attributes }
-        }.to change(Shop, :count).by(0)
-      end
-
-    
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post shops_url, params: { shop: invalid_attributes }
-        expect(response).to be_successful
-      end
-    
-    end
-  end
-
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested shop" do
-        shop = Shop.create! valid_attributes
-        patch shop_url(shop), params: { shop: new_attributes }
-        shop.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the shop" do
-        shop = Shop.create! valid_attributes
-        patch shop_url(shop), params: { shop: new_attributes }
-        shop.reload
-        expect(response).to redirect_to(shop_url(shop))
-      end
-    end
-
-    context "with invalid parameters" do
-    
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        shop = Shop.create! valid_attributes
-        patch shop_url(shop), params: { shop: invalid_attributes }
-        expect(response).to be_successful
-      end
-    
-    end
-  end
-
-  describe "DELETE /destroy" do
-    it "destroys the requested shop" do
-      shop = Shop.create! valid_attributes
-      expect {
-        delete shop_url(shop)
-      }.to change(Shop, :count).by(-1)
-    end
-
-    it "redirects to the shops list" do
-      shop = Shop.create! valid_attributes
-      delete shop_url(shop)
-      expect(response).to redirect_to(shops_url)
+    it 'sets proper data attributes for map' do
+      expect(response.body).to include('data-latitude=13.736717')
+      expect(response.body).to include('data-longitude=100.526186')
+      expect(response.body).to include('data-color=green')
     end
   end
 end

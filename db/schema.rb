@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2022_11_14_171607) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.string "color"
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_171607) do
     t.string "name"
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
-    t.integer "category_id", null: false
+    t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_shops_on_category_id"
