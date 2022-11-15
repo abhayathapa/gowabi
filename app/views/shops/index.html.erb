@@ -21,7 +21,7 @@
   </div>
 
   <%= javascript_pack_tag 'map' %>
-  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials[:google_map_api]}&callback=initMap",
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=&callback=initMap",
       defer: true,
       async: true
   %>
