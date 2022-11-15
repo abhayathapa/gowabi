@@ -1,7 +1,7 @@
 function initMap() {
 	const map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 12,
-		center: new google.maps.LatLng(13.736717, 100.523186)
+		zoom: 15,
+		center: new google.maps.LatLng(13.86717, 100.69186)
 	})
 
 	const shops = document.querySelectorAll('li.shop-item')
