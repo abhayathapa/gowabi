@@ -1,6 +1,6 @@
 function initMap() {
 	const map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 16,
+		zoom: 8,
 		center: new google.maps.LatLng(13.736717, 100.523186)
 	})
 
@@ -14,7 +14,7 @@ function initMap() {
 				parseFloat(shop.getAttribute('data-latitude')),
 				parseFloat(shop.getAttribute('data-longitude'))
 			),
-			icon: `http://maps.google.com/mapfiles/ms/icons/${shop.getAttribute('data-color')}-dot.png`,
+			icon: `https://maps.google.com/mapfiles/ms/icons/${shop.getAttribute('data-color')}-dot.png`,
 			name: shop.getAttribute('data-name'),
 			map: map
 		})

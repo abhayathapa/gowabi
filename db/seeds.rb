@@ -1,17 +1,22 @@
 require 'faker'
 
 CATEGORIES_DATA = JSON.parse(File.read('db/categories.json'))
-LOCATION_DATA = JSON.parse(File.read('db/shops.json'))
 
 CATEGORIES_DATA.each do |category|
   Category.create! category
 end
 
-LOCATION_DATA.each do |location|
-  Shop.create!(
-    name: Faker::Company.name,
-    latitude: location['latitude'],
-    longitude: location['longitude'],
-    category_id: Category.all.sample.id
-  )
+# Create shops with seed data
+lat =  13.736717
+lng =  100.523186
+
+shops = []
+10_000.times do |index|
+  shops << { name: Faker::Company.name,
+             latitude: [lat, lat + (index * 0.01), lat - (index * 0.01)].sample,
+             longitude: [lng + (index * 0.01), lng - (index * 0.01), lng + (index * 0.001)].sample,
+             category_id: Category.all.sample.id,
+             created_at: Time.now,
+             updated_at: Time.now }
 end
+Shop.insert_all(shops)
